@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Financial Simulator</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+      }
+      form {
+        width: 300px;
+        margin: 0 auto;
+      }
+      label {
+        display: block;
+        margin-top: 10px;
+      }
+      input[type='number'] {
+        width: 100%;
+        padding: 5px;
+      }
+      button {
+        background-color: blue;
+        color: white;
+        padding: 5px 10px;
+        border: none;
+        cursor: pointer;
+        margin-top: 10px;
+      }
+      #result {
+        margin-top: 20px;
+        font-weight: bold;
+      }
+    </style>
+  </head>
+  <body>
+    <form id="financial-form">
+      <label for="value">Valor necessário:</label>
+      <input type="number" id="value" />
+
+      <label for="rate">Taxa de juros ao mês:</label>
+      <input type="number" id="rate" step="0.01" />
+
+      <label for="months">Quantos meses:</label>
+      <input type="number" id="months" />
+
+      <button type="button" id="calculate-btn">Calcular</button>
+    </form>
+    <div id="result"></div>
+
+    <script>
+      const form = document.getElementById("financial-form");
+      const result = document.getElementById("result");
+
+      form.addEventListener("input", () => {
+        const value = document.getElementById("value").value;
+        const rate = document.getElementById("rate").value;
+        const months = document.getElementById("months").value;
+
+        if (!value || !rate || !months) {
+          result.innerHTML = "";
+          return;
+        }
+
+        const monthlyInterest = 1 + rate / 100;
+        const total = Math.pow(monthlyInterest, months);
+        const monthlyPayment = (value * monthlyInterest * total) / (total - 1);
+
+        result.innerHTML = `Mensalidade: ${monthlyPayment.toFixed(2)}`;
+      });
+    </script>
+  </body>
+</html>
