@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Despesa Calculator</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+      }
+      form {
+        width: 300px;
+        margin: 0 auto;
+      }
+      label {
+        display: block;
+        margin-top: 10px;
+      }
+      input[type='number'] {
+        width: 100%;
+        padding: 5px;
+      }
+      button {
+        background-color: blue;
+        color: white;
+        padding: 5px 10px;
+        border: none;
+        cursor: pointer;
+        margin-top: 10px;
+      }
+      #result {
+        margin-top: 20px;
+        font-weight: bold;
+      }
+    </style>
+  </head>
+  <body>
+    <form id="expenses-form">
+      <label for="aluguel">Aluguel:</label>
+      <input type="number" id="aluguel" />
+
+      <label for="agua">Água:</label>
+      <input type="number" id="agua" />
+
+      <label for="energia">Energia Elétrica:</label>
+      <input type="number" id="energia" />
+
+      <label for="folha">Folha de Pagamento:</label>
+      <input type="number" id="folha" />
+
+      <label for="impostos">Impostos:</label>
+      <input type="number" id="impostos" />
+
+      <label for="outros">Outros:</label>
+      <input type="number" id="outros" />
+
+      <button type="button" id="calculate-btn">Calcular</button>
+    </form>
+    <div id="result"></div>
+
+    <script>
+      const form = document.getElementById("expenses-form");
+      const result = document.getElementById("result");
+
+      form.addEventListener("input", () => {
+        const expenses = [
+          document.getElementById("aluguel").value,
+          document.getElementById("agua").value,
+          document.getElementById("energia").value,
+          document.getElementById("folha").value,
+          document.getElementById("impostos").value,
+          document.getElementById("outros").value,
+        ].map(Number);
+
+        const total = expenses.reduce((acc, cur) => acc + cur, 0);
+        const average = total / expenses.length;
+        const annualEstimate = total * 12;
+
+        result.innerHTML = `Total: ${total} <br> Média: ${average} <br> Estimativa Anual: ${annualEstimate}`;
+      });
+    </script>
+  </body>
+</html>
